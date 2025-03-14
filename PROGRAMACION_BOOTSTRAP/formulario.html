@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        label {
+            font-weight: bold;
+            width: 120px; 
+        }
+        .form-control {
+            flex: 1; 
+            height: 38px; 
+        }
+        textarea.form-control {
+            height: 38px; 
+            resize: none; 
+        }
+    </style>
+</head>
+<body> 
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Formulario de Registro</h2>
+        <div class="col-md-5">
+            <div class="d-flex align-items-center mb-2">
+                <label for="nombre" class="me-2">Nombres:</label>
+                <input type="text" id="nombre" class="form-control">
+            </div>
+            <div class="d-flex align-items-center mb-2">
+                <label for="cedula" class="me-2">Cédula:</label>
+                <input type="text" id="cedula" class="form-control">
+            </div>
+            <div class="d-flex align-items-center mb-2">
+                <label for="correo" class="me-2">Correo:</label>
+                <input type="email" id="correo" class="form-control">
+            </div>
+            <div class="d-flex align-items-center mb-2">
+                <label for="direccion" class="me-2">Dirección:</label>
+                <textarea id="direccion" class="form-control"></textarea>
+            </div>
+            <div class="mt-3">
+                <button class="btn btn-primary" onclick="agregarRegistro()">
+                    <i class="bi bi-cloud-plus"></i> Agregar
+                </button>
+            </div>
+        </div>
+        
+        <div class="mt-4">
+            <h4 class="text-center">Registros</h4>
+            <table class="table text-center">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Cédula</th>
+                        <th>Correo</th>
+                        <th>Dirección</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaRegistros">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function agregarRegistro() {
+            var nombre = document.getElementById("nombre").value;
+            var cedula = document.getElementById("cedula").value;
+            var correo = document.getElementById("correo").value;
+            var direccion = document.getElementById("direccion").value;
+
+            if (nombre === "" || cedula === "" || correo === "" || direccion === "") {
+                alert("Por favor, completa todos los campos.");
+                return;
+            }
+
+            var tabla = document.getElementById("tablaRegistros");
+            var nuevaFila = tabla.insertRow();
+
+            nuevaFila.innerHTML = `
+                <td>${nombre}</td>
+                <td>${cedula}</td>
+                <td>${correo}</td>
+                <td>${direccion}</td>
+                <td>
+                    <button class="btn btn-danger btn-sm" onclick="eliminarRegistro(this)">
+                        <i class="bi bi-trash"></i> Eliminar
+                    </button>
+                </td>
+            `;
+
+            document.getElementById("nombre").value = "";
+            document.getElementById("cedula").value = "";
+            document.getElementById("correo").value = "";
+            document.getElementById("direccion").value = "";
+        }
+
+        function eliminarRegistro(boton) {
+            var fila = boton.parentNode.parentNode;
+            fila.parentNode.removeChild(fila);
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="jquery-3.7.1.min.js"></script>
+    <script src="miscript.js"></script>
+</body>
+</html>
